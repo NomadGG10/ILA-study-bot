@@ -23,7 +23,7 @@ gcp_credentials = service_account.Credentials.from_service_account_info(
     st.secrets["gcp_service_account"],
     scopes=["https://www.googleapis.com/auth/drive.readonly"]
 )
-FOLDER_ID = st.secrets["gcp_service_account"]["folder_id"]
+FOLDER_ID = st.secrets["google_drive"]["folder_id"]
 
 # ======================= AUTHENTICATE GOOGLE DRIVE =======================
 drive_service = build('drive', 'v3', credentials=gcp_credentials)
