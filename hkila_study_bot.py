@@ -1,7 +1,6 @@
 
-# Custom HKILA PPE Study Bot (Streamlit Version)
+# hkila_study_bot.py — Updated for Streamlit deployment
 
-# Required libraries
 import os
 import openai
 import streamlit as st
@@ -16,25 +15,22 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.chains import RetrievalQA
 from langchain.llms import OpenAI
 
-# ======================= CONFIGURATION =======================
+# =============== Streamlit Secrets Integration ===============
 
-# --- (1) Set your OpenAI API key from secrets ---
 openai.api_key = st.secrets["openai"]["api_key"]
 
-# --- (2) Google Drive Service Account from secrets ---
-SCOPES = ['https://www.googleapis.com/auth/drive.readonly']
-FOLDER_ID = '1yTiGfVpSlTRFmqJgJfXogM92HQA5wNfw'
-
-# Convert secrets to temporary JSON file
 with tempfile.NamedTemporaryFile(delete=False, suffix=".json", mode="w") as f:
     json.dump(dict(st.secrets["gcp_service_account"]), f)
     temp_service_account_path = f.name
 
 credentials = service_account.Credentials.from_service_account_file(
-    temp_service_account_path, scopes=SCOPES)
+    temp_service_account_path, scopes=["https://www.googleapis.com/auth/drive.readonly"]
+)
 drive_service = build('drive', 'v3', credentials=credentials)
 
-# ======================= PDF PROCESSING =======================
+# =============== Google Drive PDF Handling ===============
+
+FOLDER_ID = '1yTiGfVpSlTRFmqJgJfXogM92HQA5wNfw'
 
 def list_pdfs_in_drive_folder(folder_id):
     results = drive_service.files().list(
@@ -51,7 +47,7 @@ def extract_text_from_pdf(file_path):
     reader = PdfReader(file_path)
     return "\n".join(page.extract_text() or '' for page in reader.pages)
 
-# ======================= LANGCHAIN SETUP =======================
+# =============== LangChain Vector Store ===============
 
 def create_vectorstore_from_text(text):
     splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
@@ -64,7 +60,7 @@ def create_qa_chain(vectorstore):
     retriever = vectorstore.as_retriever()
     return RetrievalQA.from_chain_type(llm=OpenAI(temperature=0), retriever=retriever)
 
-# ======================= STREAMLIT INTERFACE =======================
+# =============== Streamlit UI ===============
 
 def main():
     st.set_page_config(page_title="HKILA PPE Study Bot", layout="wide")
