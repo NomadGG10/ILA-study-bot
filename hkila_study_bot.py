@@ -19,12 +19,13 @@ SCOPES = ["https://www.googleapis.com/auth/drive.readonly"]
 FOLDER_ID = st.secrets["google_drive"]["folder_id"]
 
 # ========== GOOGLE DRIVE AUTH ==========
-with tempfile.NamedTemporaryFile(delete=False, suffix=".json") as tmp:
+with tempfile.NamedTemporaryFile(delete=False, suffix=".json", mode="w") as tmp:
     json.dump(dict(st.secrets["gcp_service_account"]), tmp)
     SERVICE_ACCOUNT_FILE = tmp.name
 
 credentials = service_account.Credentials.from_service_account_file(
-    SERVICE_ACCOUNT_FILE, scopes=SCOPES)
+    SERVICE_ACCOUNT_FILE, scopes=SCOPES
+)
 drive_service = build("drive", "v3", credentials=credentials)
 
 # ========== FUNCTIONS ==========
