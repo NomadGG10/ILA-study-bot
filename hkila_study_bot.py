@@ -50,7 +50,7 @@ def extract_text_from_pdf(file_path):
 def create_vectorstore_from_text(text):
     splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
     docs = splitter.create_documents([text])
-    embeddings = OpenAIEmbeddings()
+    embeddings = OpenAIEmbeddings(openai_api_key=st.secrets['openai']['api_key'])
     vectorstore = FAISS.from_documents(docs, embeddings)
     return vectorstore
 
