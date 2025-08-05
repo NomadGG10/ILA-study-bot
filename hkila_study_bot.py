@@ -1,6 +1,7 @@
 # Custom HKILA PPE Study Bot (Streamlit Version)
 
 import os
+import tempfile 
 import json
 import openai
 import streamlit as st
