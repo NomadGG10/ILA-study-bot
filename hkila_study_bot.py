@@ -20,7 +20,7 @@ openai.api_key = os.getenv("OPENAI_API_KEY")  # Or set manually for testing
 # openai.api_key = "sk-xxxxx"  # Uncomment to test locally
 
 # --- (2) Google Drive Service Account JSON ---
-SERVICE_ACCOUNT_FILE = "gpt-access-468102-f29a5df6c2c9.json"
+SERVICE_ACCOUNT_FILE = "gpt-access-468102-21ff871c01e7.json"
 SCOPES = ['https://www.googleapis.com/auth/drive.readonly']
 FOLDER_ID = '1yTiGfVpSlTRFmqJgJfXogM92HQA5wNfw'
 
