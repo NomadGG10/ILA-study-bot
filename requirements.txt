@@ -1,7 +1,6 @@
 streamlit
 openai
-langchain==0.1.16
-langchain-community==0.0.19
+langchain
 PyPDF2
 google-api-python-client
 google-auth
@@ -9,3 +8,4 @@ google-auth-oauthlib
 google-auth-httplib2
 tiktoken
 faiss-cpu
+langchain-community
