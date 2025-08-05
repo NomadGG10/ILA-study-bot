@@ -1,5 +1,4 @@
-
-# hkila_study_bot.py — Updated for Streamlit deployment
+# hkila_study_bot.py — Final Streamlit Version (fully integrated JSON)
 
 import os
 import openai
@@ -15,12 +14,26 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.chains import RetrievalQA
 from langchain.llms import OpenAI
 
-# =============== Streamlit Secrets Integration ===============
+# =============== API Key ===============
+openai.api_key = os.getenv("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")  # Replace with your actual key if needed
+# openai.api_key = "sk-xxxxx"  # You can uncomment this and hardcode the key for local use
 
-openai.api_key = st.secrets["openai"]["api_key"]
+# =============== GCP JSON CREDENTIAL (directly inserted) ===============
+GCP_SERVICE_ACCOUNT = {
+  "type": "service_account",
+  "project_id": "gpt-access-468102",
+  "private_key_id": "21ff871c01e7033edbe8e813e144a0047f196b83",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDX77wBTzxYjm6m\nN7dP4CsP2TbBWZLHKZ11mSrypACgA4bMwfSXNaQFwfMpSDv9GZX3yP4HKdQY2dQY\nKgxTN5j9zPb1gkhinLErSwuu+7XARJEsGLKiEy5d7Wa6UkBaYAWkyr9V3xHcOAlz\n+hXCWSNWfYcMruYlFx1nVTQAd5luh06BGA9OJnVUYfrTTJL8OZpPdwdCG9E1GoG4\nB0UU+yD/6Ju6PW7k/sgHhg+N1+Zmp5I47uXUi/iexvZRZ170+P53Dgk7+9jsmO+p\nypO+07nVTz5pS0my/fN/sroVpNziIWA3aor0qvojgxSAxh1faywaD9+XlsQ5YZjH\nToK3D/1JAgMBAAECggEAA/tbO6jy420o9C611ia7lIy8Wj9lGgAV87ux04ybqFe4\nTiFLedhW4HZNnhbDaGzm241cxdQLIbQumY148bXmP9PeP/O5kvvxtmspWX4xwUxi\nYu5HqP5yje/ZQ5lNr3zyzbGhapt08FsmLXnQmedb4/Xnnh/BhbCR7bxf+5w4+5VB\nda1VTJB+UKzRUtS/AIG20twasSb7x18XPWh36Tb8IvyHO5YSmCQxXMGY713XdXOZ\n79Ft90gXU2CBoqp9PNucnjoP/8+vcABsHOk7y9iC8aDhoB/LHPZEa90zgDOzlr3u\ngWLU+iM8xxGLtiTluKWGy9oONibVVEHfUcErUio2owKBgQD/BP9TRaxLDffJRQ53\n9Cs1jiZSTgrs2FizQIR/KmjnGtQs9kpPPPdBu2yzoxBTNnYQwSOI2RB5BCX0xuZq\nU1uo8gtWr2OrAZ0Kf7+dDBX3O4g6BXKWTNy2kl3RyNPY9j1FyWrcsJKRJrNmeDns\n2ymeO3DLcQn50GpuXdNroxtDYwKBgQDYxEUDOwsVle4PUCkrZRxpFQEnE7KkGg6t\noguMrsAekxDI+2Kdi7BaxsJBVveysHIIUQ6qd+wQnEDUzsseE7fslzCeBzTiCsng\n22Eivh1yf4wS5j8td2tnekfNavW063aIg/U5VziFTu8T4oAkwCb7M33p2JYCa604\nQpymT+W6YwKBgQDrYGhtKoyIxb6jdWqSSroq9yXlp4Sr8E+GOxFP8gva6sdVLImP\nszyf3ebJssLZmxXEBw/OOlLa73o8/+whzQh32defTciXSKjyzNBFmqcXh0oIC4kk\nspKwrE2N2Ge4BCavp+VLBmpxMKA6/tKwC+TQ2BoWnCHSAoyJi24dFfGO8wKBgEKf\nuJJwoEyHI39DZRP4ZM4LbapEDKERfTdy2dfokhYTn5IWac4AdDjCZExO3ZznTHUv\n7LEKYN0OGYMO+DELYHlwUroPfvqG1FuvMeDKzCQ3/aaFbB+eV72bQNxrJo/v2yPE\nYye3niCjDSpwcHBbOt/0iJvKPPkLfVcQajNX1UT/AoGBAKjKIyMgQuSe8wkbeN97\np5hD5HMmhJNq2qtCCG85Y5cPvBcKdK3KRvUqoiLkITWiF51/ZBgYhKSfELDijJ4v\nQHpavbRoKe1ZlG9twRIsvhXorAEYZBBr3Hf2UCBcBNK+wIvYqSYd/SpRPUsB5N9A\nCssjBhVvDwdCMhZfCHuYZqjo\n-----END PRIVATE KEY-----\n",
+  "client_email": "ilabot@gpt-access-468102.iam.gserviceaccount.com",
+  "client_id": "110074184377263013286",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/ilabot%40gpt-access-468102.iam.gserviceaccount.com"
+}
 
 with tempfile.NamedTemporaryFile(delete=False, suffix=".json", mode="w") as f:
-    json.dump(dict(st.secrets["gcp_service_account"]), f)
+    json.dump(GCP_SERVICE_ACCOUNT, f)
     temp_service_account_path = f.name
 
 credentials = service_account.Credentials.from_service_account_file(
@@ -30,7 +43,7 @@ drive_service = build('drive', 'v3', credentials=credentials)
 
 # =============== Google Drive PDF Handling ===============
 
-FOLDER_ID = '1yTiGfVpSlTRFmqJgJfXogM92HQA5wNfw'
+FOLDER_ID = '1MVkKp09iLRGuvdXsE0uJHIalnyU3fUTx'
 
 def list_pdfs_in_drive_folder(folder_id):
     results = drive_service.files().list(
