@@ -1,9 +1,12 @@
 
 # Custom HKILA PPE Study Bot (Streamlit Version)
 
+# Required libraries
 import os
 import openai
 import streamlit as st
+import json
+import tempfile
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
 from PyPDF2 import PdfReader
@@ -12,20 +15,23 @@ from langchain.vectorstores import FAISS
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.chains import RetrievalQA
 from langchain.llms import OpenAI
-from dotenv import load_dotenv
 
 # ======================= CONFIGURATION =======================
 
-# Load API key from Streamlit secrets or .env file
-load_dotenv()
-openai.api_key = st.secrets.get("OPENAI_API_KEY", os.getenv("OPENAI_API_KEY"))
+# --- (1) Set your OpenAI API key from secrets ---
+openai.api_key = st.secrets["openai"]["api_key"]
 
-# Google Drive Service Account from secrets
+# --- (2) Google Drive Service Account from secrets ---
 SCOPES = ['https://www.googleapis.com/auth/drive.readonly']
 FOLDER_ID = '1yTiGfVpSlTRFmqJgJfXogM92HQA5wNfw'
 
-credentials = service_account.Credentials.from_service_account_info(
-    st.secrets["gcp_service_account"], scopes=SCOPES)
+# Convert secrets to temporary JSON file
+with tempfile.NamedTemporaryFile(delete=False, suffix=".json", mode="w") as f:
+    json.dump(dict(st.secrets["gcp_service_account"]), f)
+    temp_service_account_path = f.name
+
+credentials = service_account.Credentials.from_service_account_file(
+    temp_service_account_path, scopes=SCOPES)
 drive_service = build('drive', 'v3', credentials=credentials)
 
 # ======================= PDF PROCESSING =======================
