@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "gpt-access-468102",
+  "private_key_id": "f29a5df6c2c9228f49d73d7736633ec2a54f470f",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCb3ycKrSsU++QE\ntbkRXVqj026apunPYaeoDbURbngZS4tsnQQ16qUnQCCd5OOeDySGOkkHhw55nVdu\nA2Wwfd/weqFYx6CQAbt8mrHOGmb7BJXfrvTxIbTXioxUu1n2SkXQMSb38mIjJ5HF\npEAOjWaqg9myfw8TwHNa9krsWUVQrRJVDlxFT6beUucflVbvgl00vP8ODuq0rfRJ\njuSBn4AJLKnrTTyJAm9ibow6o8WgsT8eiD1qvwMUDU8zOrws/8QKlZq4nObeD2Yt\n6rwE/AYNHNzURsf2bfImxGpO47RODmJclFMgYq1HtG8Zv0006yZogZWbrDFQCqbH\nVl3+l3hlAgMBAAECggEAGvxUK8zFve0LMcaNayR0rhLLnhJCPgFr75Qp8kHkIIr7\n8Tqw8S212JkJXJS1VJbODcAXByradnMnYRhM+XSdeeqdNvvewDfQkBbPLD3VcOV/\nFhoZ9YpOnxdxSrUh8toygoQT+U7ZLzlpSySv42UXLnPD05ucTmDeB9RGresZrUj4\nFbSqGfFy+j29OUxO0vdvLzUKqmf5iSgUFFFdTRkKxXs/1VBwME5t8qjlvPzuKemt\nrZaqcbbsVfKur1xWEMM2K5JVAgH1N5PA8jQex9syeWopVmgnCbKG/Q7e+skYsap9\nljqxNGDl8fil2IuhZK3s3jkKXaz9MKqD6U32Fkyj+QKBgQDYS69XnFVYVFQhWaDj\neju/J3uXNT/lFvFOvIB9qwj6xskYTkquHuBTTcByUnPk4k8JRms6ub+gpk2MwDye\n4WAnwNT4MMNBZH+krxRNpUkO+nAuukwQlvi+++rhz7ZR2PgjFt++R7/nfVCYLQQb\npeuN7oLhcVKzxwP6gK+RxoWFPQKBgQC4e/uvd5qr9HIod25TSf6/KLnUkMqlaBeI\n01tQjY5/M2VLGqBXcl8c7jV2MieJoiIek4KGMbEKZ2iY+QCTTnLmE/xmtbKv51FN\nYN+DToYb6M0S/P4NGNAmnXQelEKfPZLDldGQgcpVlxHHNKCSOfKMOjZ3DMpROX/0\nvsb8UQICSQKBgQDRNov440eN86uYwpgj0BTAdhFOlfwivElWjnB+nZRG9UaIExqb\nR1RWX2uZaPWe2+P1Jb8Mg6S+YH28eiloyLj4WsXk9022D96DTbIG1KxRJ56hJCP1\nHAKowQVVvFMu4f5J+pMa+029PPJa75f8okWw+JZyN+n16LeJczXffDWkRQKBgHmM\n1utpdnNNf9nBtuMRodL5VlcDf0E0MC1qdIPCgNy2VEsDpBl5tckt+fOCYCKCvNBA\niIM6QleEgponlYV47qNBD8/sb2sOkbbV2O5+0kWZQWT9Y7XlX1/R5iwvqyWYQBa1\no3n+yf1Sp9gEiLdPjsttn20Y9ERIClKLUDf2d8hhAoGAFqL/YcgaOGL7jlKWLgKk\nuXlylbEuZrPhJV3f44tJ/62XOmQ5nL8enG8tnFuOwtexarza+7qX/H1mawds9Bn5\n7tX5+jb7/yUMid1qdvnC9CmFtG3H1LewrmqTdPq790QWyQ6sqooSNKHwTohFWYYa\nArWTSkJuo2Gl2kWhk6vPMcE=\n-----END PRIVATE KEY-----\n",
+  "client_email": "studybot-service-account@gpt-access-468102.iam.gserviceaccount.com",
+  "client_id": "106750385171753646087",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/studybot-service-account%40gpt-access-468102.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
