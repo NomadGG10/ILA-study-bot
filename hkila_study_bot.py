@@ -1,26 +1,10 @@
 # Custom HKILA PPE Study Bot (Streamlit Version)
 
+# Required libraries
 import os
-import tempfile 
-import json
 import openai
 import streamlit as st
 from google.oauth2 import service_account
-
-# ✅ Step 2: Patch private_key formatting
-gcp_secrets = dict(st.secrets["gcp_service_account"])
-gcp_secrets["private_key"] = gcp_secrets["private_key"].replace("\\n", "\n")
-
-# Write to temp file
-with tempfile.NamedTemporaryFile(delete=False, suffix=".json", mode="w") as f:
-    json.dump(gcp_secrets, f)
-    temp_json_path = f.name
-
-# ✅ Use the temp file to authenticate Google Drive
-credentials = service_account.Credentials.from_service_account_file(
-    temp_json_path, scopes=["https://www.googleapis.com/auth/drive.readonly"]
-)
-
 from googleapiclient.discovery import build
 from PyPDF2 import PdfReader
 from langchain.embeddings.openai import OpenAIEmbeddings
@@ -31,20 +15,18 @@ from langchain.llms import OpenAI
 
 # ======================= CONFIGURATION =======================
 
-# --- Load OpenAI API Key from secrets ---
+# Set OpenAI API key from Streamlit secrets
 openai.api_key = st.secrets["openai"]["api_key"]
 
-# --- Load Google Credentials from secrets ---
-gcp_credentials_dict = st.secrets["gcp_service_account"]
-credentials = service_account.Credentials.from_service_account_info(dict(gcp_credentials_dict))
+# Load Google Service Account from Streamlit secrets
+gcp_credentials = service_account.Credentials.from_service_account_info(
+    st.secrets["gcp_service_account"],
+    scopes=["https://www.googleapis.com/auth/drive.readonly"]
+)
+FOLDER_ID = st.secrets["gcp_service_account"]["folder_id"]
 
-SCOPES = ['https://www.googleapis.com/auth/drive.readonly']
-FOLDER_ID = '1yTiGfVpSlTRFmqJgJfXogM92HQA5wNfw'  # <- Replace with your actual Google Drive folder ID
-
-drive_service = build('drive', 'v3', credentials=credentials)
-
-gcp_secrets = dict(st.secrets["gcp_service_account"])
-gcp_secrets["private_key"] = gcp_secrets["private_key"].replace("\\n", "\n")
+# ======================= AUTHENTICATE GOOGLE DRIVE =======================
+drive_service = build('drive', 'v3', credentials=gcp_credentials)
 
 # ======================= PDF PROCESSING =======================
 
