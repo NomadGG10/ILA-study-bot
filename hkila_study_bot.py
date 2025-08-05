@@ -27,7 +27,7 @@ SCOPES = ['https://www.googleapis.com/auth/drive.readonly']
 FOLDER_ID = '1yTiGfVpSlTRFmqJgJfXogM92HQA5wNfw'
 
 with tempfile.NamedTemporaryFile(mode="w", delete=False) as f:
-    json.dump(st.secrets["gpt_access"], f)
+    json.dump(dict(st.secrets["gpt_access"]), f)
     temp_service_account_path = f.name
 
 credentials = service_account.Credentials.from_service_account_file(
