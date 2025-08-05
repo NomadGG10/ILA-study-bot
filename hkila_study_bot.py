@@ -5,6 +5,21 @@ import json
 import openai
 import streamlit as st
 from google.oauth2 import service_account
+
+# ✅ Step 2: Patch private_key formatting
+gcp_secrets = dict(st.secrets["gcp_service_account"])
+gcp_secrets["private_key"] = gcp_secrets["private_key"].replace("\\n", "\n")
+
+# Write to temp file
+with tempfile.NamedTemporaryFile(delete=False, suffix=".json", mode="w") as f:
+    json.dump(gcp_secrets, f)
+    temp_json_path = f.name
+
+# ✅ Use the temp file to authenticate Google Drive
+credentials = service_account.Credentials.from_service_account_file(
+    temp_json_path, scopes=["https://www.googleapis.com/auth/drive.readonly"]
+)
+
 from googleapiclient.discovery import build
 from PyPDF2 import PdfReader
 from langchain.embeddings.openai import OpenAIEmbeddings
@@ -26,6 +41,9 @@ SCOPES = ['https://www.googleapis.com/auth/drive.readonly']
 FOLDER_ID = '1yTiGfVpSlTRFmqJgJfXogM92HQA5wNfw'  # <- Replace with your actual Google Drive folder ID
 
 drive_service = build('drive', 'v3', credentials=credentials)
+
+gcp_secrets = dict(st.secrets["gcp_service_account"])
+gcp_secrets["private_key"] = gcp_secrets["private_key"].replace("\\n", "\n")
 
 # ======================= PDF PROCESSING =======================
 
