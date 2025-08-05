@@ -1,7 +1,0 @@
-streamlit
-openai
-google-auth
-google-api-python-client
-PyPDF2
-langchain
-faiss-cpu
