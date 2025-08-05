@@ -1,8 +1,10 @@
 streamlit
 openai
-google-auth
-google-api-python-client
-PyPDF2
 langchain
-langchain-community
+PyPDF2
+google-api-python-client
+google-auth
+google-auth-oauthlib
+google-auth-httplib2
+tiktoken
 faiss-cpu
